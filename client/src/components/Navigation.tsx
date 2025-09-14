@@ -1,7 +1,6 @@
 import { useLocation } from "wouter";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
-import React from "react";
 
 export default function Navigation() {
   const [location] = useLocation();
@@ -11,18 +10,23 @@ export default function Navigation() {
     { href: "/", label: "หน้าแรก" },
     { href: "/about", label: "เกี่ยวกับ" },
     { href: "/gallery", label: "แกลเลอรี" },
-    { href: "/add", label: "เพิ่มผลงาน" }
+    { href: "/add", label: "เพิ่มผลงาน" },
   ];
 
-  const isActive = (href: string) => (href === "/" ? location === "/" : location.startsWith(href));
+  const isActive = (href: string) =>
+    href === "/" ? location === "/" : location.startsWith(href);
 
   return (
     <header className="fixed top-0 left-0 right-0 backdrop-blur-glass border-b border-border z-50">
       <nav className="flex justify-between items-center px-4 md:px-8 py-4 max-w-7xl mx-auto">
-        <a href="/" className="text-xl md:text-2xl font-bold text-primary hover:text-accent transition-colors">
+        <a
+          href="/"
+          className="text-xl md:text-2xl font-bold text-primary hover:text-accent transition-colors"
+        >
           นิทรรศการศิลปะ
         </a>
 
+        {/* Desktop Menu */}
         <ul className="hidden md:flex items-center space-x-8">
           {navItems.map(({ href, label }) => (
             <li key={href}>
@@ -48,6 +52,7 @@ export default function Navigation() {
           )}
         </ul>
 
+        {/* Mobile Toggle */}
         <button
           className="md:hidden text-foreground hover:text-primary transition-colors"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -55,6 +60,7 @@ export default function Navigation() {
           {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
 
+        {/* Mobile Menu */}
         {isMobileMenuOpen && (
           <div className="absolute top-full left-0 right-0 bg-card border-b border-border md:hidden">
             <ul className="flex flex-col">
