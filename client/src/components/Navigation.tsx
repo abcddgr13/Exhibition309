@@ -1,4 +1,4 @@
-// client/src/components/Navigation.tsx
+// ✅ แบบถูกต้อง
 import { useState } from "react";
 import { useLocation } from "wouter";
 import { Menu, X } from "lucide-react";
@@ -20,12 +20,10 @@ export default function Navigation() {
   return (
     <header className="fixed top-0 left-0 right-0 backdrop-blur border-b border-gray-200 z-50">
       <nav className="flex justify-between items-center px-4 py-4 max-w-7xl mx-auto">
-        {/* Logo / Site Name */}
         <a href="/" className="text-xl font-bold text-primary">
           นิทรรศการศิลปะ
         </a>
 
-        {/* Desktop Menu */}
         <ul className="hidden md:flex space-x-8">
           {navItems.map(({ href, label }) => (
             <li key={href}>
@@ -41,7 +39,6 @@ export default function Navigation() {
           ))}
         </ul>
 
-        {/* Mobile Menu Toggle */}
         <button
           className="md:hidden focus:outline-none"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -49,7 +46,6 @@ export default function Navigation() {
           {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
 
-        {/* Mobile Menu */}
         {isMobileMenuOpen && (
           <div className="absolute top-full left-0 right-0 bg-white border-b md:hidden">
             <ul className="flex flex-col">
