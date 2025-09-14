@@ -2,6 +2,7 @@ import { Artwork, InsertArtwork } from "@shared/schema";
 
 const ARTWORKS_KEY = 'artworks';
 
+// ฟังก์ชันเดิมไม่เปลี่ยน
 export function saveArtwork(artwork: InsertArtwork): Artwork {
   const artworks = getArtworks();
   const newArtwork: Artwork = {
@@ -38,3 +39,7 @@ export function convertImageToBase64(file: File): Promise<string> {
     reader.readAsDataURL(file);
   });
 }
+
+// ---- เพิ่ม export สำหรับ AdminDashboard.tsx โดยไม่กระทบฟังก์ชันหลัก ----
+export const loadArtworks = getArtworks;
+export const saveArtworks = (artworks: Artwork[]) => localStorage.setItem(ARTWORKS_KEY, JSON.stringify(artworks));
