@@ -1,10 +1,9 @@
-import { useLocation } from "wouter"; // ใช้ useLocation จาก wouter
+import { useLocation } from "wouter";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import React from "react";
-import { Link as RouterLink } from "react-router-dom"; // เปลี่ยนชื่อ import เพื่อลด conflict
 
-// ลบ export default ซ้ำ ใช้แค่ครั้งเดียว
+// export default แค่ครั้งเดียว
 export default function Navigation() {
   const [location] = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -24,18 +23,58 @@ export default function Navigation() {
   return (
     <header className="fixed top-0 left-0 right-0 backdrop-blur-glass border-b border-border z-50">
       <nav className="flex justify-between items-center px-4 md:px-8 py-4 max-w-7xl mx-auto">
-        <RouterLink
-          to="/"
-          className="text-xl md:text-2xl font-bold text-primary hover:text-accent transition-colors"
-        >
+        <a href="/" className="text-xl md:text-2xl font-bold text-primary hover:text-accent transition-colors">
           นิทรรศการศิลปะ
-        </RouterLink>
+        </a>
 
         {/* Desktop Navigation */}
         <ul className="hidden md:flex items-center space-x-8">
           {navItems.map(({ href, label }) => (
             <li key={href}>
-              <RouterLink
+              <a
+                href={href}
+                className={`font-medium transition-colors hover:text-primary ${
+                  isActive(href) ? "text-primary" : "text-foreground"
+                }`}
+              >
+                {label}
+              </a>
+            </li>
+          ))}
+        </ul>
+
+        {/* Mobile Menu Toggle */}
+        <button
+          className="md:hidden text-foreground hover:text-primary transition-colors"
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        >
+          {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
+
+        {/* Mobile Navigation */}
+        {isMobileMenuOpen && (
+          <div className="absolute top-full left-0 right-0 bg-card border-b border-border md:hidden">
+            <ul className="flex flex-col">
+              {navItems.map(({ href, label }) => (
+                <li key={href}>
+                  <a
+                    href={href}
+                    className={`block px-4 py-3 font-medium transition-colors hover:bg-secondary ${
+                      isActive(href) ? "text-primary bg-secondary" : "text-foreground"
+                    }`}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    {label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </nav>
+    </header>
+  );
+}              <RouterLink
                 to={href}
                 className={`font-medium transition-colors hover:text-primary ${
                   isActive(href) ? "text-primary" : "text-foreground"
