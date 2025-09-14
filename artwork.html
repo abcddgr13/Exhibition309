@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>รายละเอียดผลงาน - นิทรรศการศิลปะออนไลน์</title>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <h1>นิทรรศการศิลปะออนไลน์</h1>
+                </div>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">หน้าแรก</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="about.html" class="nav-link">เกี่ยวกับ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="gallery.html" class="nav-link">แกลเลอรี</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="add.html" class="nav-link">เพิ่มผลงาน</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="admin.html" class="nav-link">จัดการผลงาน</a>
+                    </li>
+                </ul>
+                <div class="hamburger">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="artwork-detail">
+            <div class="container">
+                <div class="back-link">
+                    <a href="gallery.html" class="btn-back">← กลับไปแกลเลอรี</a>
+                </div>
+
+                <div id="artwork-content" class="artwork-content">
+                    <!-- Artwork details will be loaded here by JavaScript -->
+                </div>
+
+                <div id="artwork-not-found" class="artwork-not-found" style="display: none;">
+                    <h1>ไม่พบผลงาน</h1>
+                    <p>ผลงานที่คุณค้นหาไม่พบในระบบ</p>
+                    <a href="gallery.html" class="btn-primary">กลับไปแกลเลอรี</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 นิทรรศการศิลปะออนไลน์. สงวนลิขสิทธิ์.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Load artwork details when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            loadArtworkDetail();
+        });
+    </script>
+</body>
+</html>

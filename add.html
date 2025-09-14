@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เพิ่มผลงาน - นิทรรศการศิลปะออนไลน์</title>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <h1>นิทรรศการศิลปะออนไลน์</h1>
+                </div>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">หน้าแรก</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="about.html" class="nav-link">เกี่ยวกับ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="gallery.html" class="nav-link">แกลเลอรี</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="add.html" class="nav-link active">เพิ่มผลงาน</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="admin.html" class="nav-link">จัดการผลงาน</a>
+                    </li>
+                </ul>
+                <div class="hamburger">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Password Protection Modal -->
+        <div id="password-modal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <h2>ยืนยันตัวตน</h2>
+                <p>กรุณาใส่รหัสผ่านเพื่อเข้าถึงหน้าเพิ่มผลงาน</p>
+                <form id="password-form">
+                    <div class="form-group">
+                        <label for="admin-password">รหัสผ่าน:</label>
+                        <input type="password" id="admin-password" name="password" required>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn-primary">เข้าสู่ระบบ</button>
+                        <button type="button" class="btn-secondary" onclick="goToHome()">ยกเลิก</button>
+                    </div>
+                </form>
+                <div id="password-error" class="error-message" style="display: none;">
+                    รหัสผ่านไม่ถูกต้อง กรุณาลองใหม่อีกครั้ง
+                </div>
+            </div>
+        </div>
+
+        <!-- Add Artwork Form -->
+        <section id="add-artwork-section" class="add-artwork-section" style="display: none;">
+            <div class="container">
+                <div class="page-header">
+                    <h1>เพิ่มผลงานศิลปะ</h1>
+                    <p>เพิ่มผลงานศิลปะใหม่เข้าสู่แกลเลอรี</p>
+                </div>
+
+                <form id="add-artwork-form" class="artwork-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="artwork-title">ชื่อผลงาน *</label>
+                            <input type="text" id="artwork-title" name="title" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="artwork-artist">ชื่อศิลปิน *</label>
+                            <input type="text" id="artwork-artist" name="artist" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="artwork-category">หมวดหมู่ *</label>
+                        <select id="artwork-category" name="category" required>
+                            <option value="">เลือกหมวดหมู่</option>
+                            <option value="แผ่นพับ อาชีพทัศนศิลป์">แผ่นพับ อาชีพทัศนศิลป์</option>
+                            <option value="Pop-up">Pop-up</option>
+                            <option value="ประติมากรรม">ประติมากรรม</option>
+                            <option value="Cubism Art">Cubism Art</option>
+                            <option value="Thai Pop Art">Thai Pop Art</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="artwork-concept">แนวคิด/คอนเซ็ปต์ *</label>
+                        <textarea id="artwork-concept" name="concept" rows="4" placeholder="อธิบายแนวคิดหรือคอนเซ็ปต์ของผลงาน" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="artwork-image">รูปภาพผลงาน *</label>
+                        <input type="file" id="artwork-image" name="image" accept="image/*" required>
+                        <div class="file-info">
+                            <small>รองรับไฟล์: JPG, PNG, GIF (ขนาดสูงสุด 5MB)</small>
+                        </div>
+                        <div id="image-preview" class="image-preview" style="display: none;">
+                            <img id="preview-img" src="" alt="ตัวอย่างรูปภาพ">
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn-primary">เพิ่มผลงาน</button>
+                        <button type="button" class="btn-secondary" onclick="resetForm()">ล้างข้อมูล</button>
+                        <a href="gallery.html" class="btn-secondary">ยกเลิก</a>
+                    </div>
+                </form>
+
+                <div id="success-message" class="success-message" style="display: none;">
+                    <p>เพิ่มผลงานเรียบร้อยแล้ว!</p>
+                </div>
+
+                <div id="error-message" class="error-message" style="display: none;">
+                    <p>เกิดข้อผิดพลาดในการเพิ่มผลงาน กรุณาลองใหม่อีกครั้ง</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 นิทรรศการศิลปะออนไลน์. สงวนลิขสิทธิ์.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Initialize add artwork page
+        document.addEventListener('DOMContentLoaded', function() {
+            checkAdminAccess('add');
+            setupAddArtworkForm();
+        });
+    </script>
+</body>
+</html>

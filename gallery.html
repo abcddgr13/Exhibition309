@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>แกลเลอรี - นิทรรศการศิลปะออนไลน์</title>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <h1>นิทรรศการศิลปะออนไลน์</h1>
+                </div>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">หน้าแรก</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="about.html" class="nav-link">เกี่ยวกับ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="gallery.html" class="nav-link active">แกลเลอรี</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="add.html" class="nav-link">เพิ่มผลงาน</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="admin.html" class="nav-link">จัดการผลงาน</a>
+                    </li>
+                </ul>
+                <div class="hamburger">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-header">
+            <div class="container">
+                <h1>แกลเลอรี</h1>
+                <p>สำรวจผลงานศิลปะจากทุกหมวดหมู่</p>
+            </div>
+        </section>
+
+        <section class="gallery-controls">
+            <div class="container">
+                <div class="filter-section">
+                    <h3>กรองตามหมวดหมู่</h3>
+                    <div class="filter-buttons">
+                        <button class="filter-btn active" data-category="all">ทั้งหมด</button>
+                        <button class="filter-btn" data-category="แผ่นพับ อาชีพทัศนศิลป์">แผ่นพับ อาชีพทัศนศิลป์</button>
+                        <button class="filter-btn" data-category="Pop-up">Pop-up</button>
+                        <button class="filter-btn" data-category="ประติมากรรม">ประติมากรรม</button>
+                        <button class="filter-btn" data-category="Cubism Art">Cubism Art</button>
+                        <button class="filter-btn" data-category="Thai Pop Art">Thai Pop Art</button>
+                    </div>
+                </div>
+
+                <div class="search-section">
+                    <input type="text" id="search-input" placeholder="ค้นหาผลงานหรือศิลปิน...">
+                </div>
+            </div>
+        </section>
+
+        <section class="gallery-section">
+            <div class="container">
+                <div id="gallery-grid" class="gallery-grid">
+                    <!-- Artworks will be loaded here by JavaScript -->
+                </div>
+                
+                <div id="no-results" class="no-results" style="display: none;">
+                    <p>ไม่พบผลงานที่ตรงกับการค้นหา</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 นิทรรศการศิลปะออนไลน์. สงวนลิขสิทธิ์.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Initialize gallery when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeGallery();
+            setupFilters();
+            setupSearch();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>จัดการผลงาน - นิทรรศการศิลปะออนไลน์</title>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <h1>นิทรรศการศิลปะออนไลน์</h1>
+                </div>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">หน้าแรก</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="about.html" class="nav-link">เกี่ยวกับ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="gallery.html" class="nav-link">แกลเลอรี</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="add.html" class="nav-link">เพิ่มผลงาน</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="admin.html" class="nav-link active">จัดการผลงาน</a>
+                    </li>
+                </ul>
+                <div class="hamburger">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Password Protection Modal -->
+        <div id="password-modal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <h2>ยืนยันตัวตน</h2>
+                <p>กรุณาใส่รหัสผ่านเพื่อเข้าถึงหน้าจัดการผลงาน</p>
+                <form id="password-form">
+                    <div class="form-group">
+                        <label for="admin-password">รหัสผ่าน:</label>
+                        <input type="password" id="admin-password" name="password" required>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn-primary">เข้าสู่ระบบ</button>
+                        <button type="button" class="btn-secondary" onclick="goToHome()">ยกเลิก</button>
+                    </div>
+                </form>
+                <div id="password-error" class="error-message" style="display: none;">
+                    รหัสผ่านไม่ถูกต้อง กรุณาลองใหม่อีกครั้ง
+                </div>
+            </div>
+        </div>
+
+        <!-- Admin Management Section -->
+        <section id="admin-section" class="admin-section" style="display: none;">
+            <div class="container">
+                <div class="page-header">
+                    <h1>จัดการผลงานศิลปะ</h1>
+                    <p>แก้ไขและลบผลงานในแกลเลอรี</p>
+                    <div class="admin-stats">
+                        <span>ผลงานทั้งหมด: <span id="total-artworks">0</span></span>
+                    </div>
+                </div>
+
+                <div class="admin-controls">
+                    <div class="search-section">
+                        <input type="text" id="admin-search" placeholder="ค้นหาผลงานหรือศิลปิน...">
+                    </div>
+                    <div class="filter-section">
+                        <select id="admin-filter">
+                            <option value="all">ทุกหมวดหมู่</option>
+                            <option value="แผ่นพับ อาชีพทัศนศิลป์">แผ่นพับ อาชีพทัศนศิลป์</option>
+                            <option value="Pop-up">Pop-up</option>
+                            <option value="ประติมากรรม">ประติมากรรม</option>
+                            <option value="Cubism Art">Cubism Art</option>
+                            <option value="Thai Pop Art">Thai Pop Art</option>
+                        </select>
+                    </div>
+                    <div class="action-buttons">
+                        <a href="add.html" class="btn-primary">เพิ่มผลงานใหม่</a>
+                        <button onclick="exportData()" class="btn-secondary">ส่งออกข้อมูล</button>
+                    </div>
+                </div>
+
+                <div id="admin-gallery" class="admin-gallery">
+                    <!-- Admin artwork cards will be loaded here -->
+                </div>
+
+                <div id="no-artworks" class="no-results" style="display: none;">
+                    <p>ไม่มีผลงานในระบบ</p>
+                    <a href="add.html" class="btn-primary">เพิ่มผลงานแรก</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Edit Modal -->
+        <div id="edit-modal" class="modal" style="display: none;">
+            <div class="modal-content large">
+                <div class="modal-header">
+                    <h2>แก้ไขผลงาน</h2>
+                    <button class="close-btn" onclick="closeEditModal()">&times;</button>
+                </div>
+                <form id="edit-form">
+                    <input type="hidden" id="edit-id" name="id">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="edit-title">ชื่อผลงาน *</label>
+                            <input type="text" id="edit-title" name="title" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-artist">ชื่อศิลปิน *</label>
+                            <input type="text" id="edit-artist" name="artist" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-category">หมวดหมู่ *</label>
+                        <select id="edit-category" name="category" required>
+                            <option value="แผ่นพับ อาชีพทัศนศิลป์">แผ่นพับ อาชีพทัศนศิลป์</option>
+                            <option value="Pop-up">Pop-up</option>
+                            <option value="ประติมากรรม">ประติมากรรม</option>
+                            <option value="Cubism Art">Cubism Art</option>
+                            <option value="Thai Pop Art">Thai Pop Art</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-concept">แนวคิด/คอนเซ็ปต์ *</label>
+                        <textarea id="edit-concept" name="concept" rows="4" required></textarea>
+                    </div>
+                    <div class="current-image">
+                        <label>รูปภาพปัจจุบัน:</label>
+                        <img id="current-image" src="" alt="รูปภาพปัจจุบัน">
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-image">เปลี่ยนรูปภาพ (ถ้าต้องการ)</label>
+                        <input type="file" id="edit-image" name="image" accept="image/*">
+                        <div id="edit-preview" class="image-preview" style="display: none;">
+                            <img id="edit-preview-img" src="" alt="ตัวอย่างรูปใหม่">
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn-primary">บันทึกการแก้ไข</button>
+                        <button type="button" class="btn-secondary" onclick="closeEditModal()">ยกเลิก</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Delete Confirmation Modal -->
+        <div id="delete-modal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <h2>ยืนยันการลบ</h2>
+                <p>คุณต้องการลบผลงาน "<span id="delete-title"></span>" หรือไม่?</p>
+                <p class="warning">การลบนี้ไม่สามารถย้อนกลับได้</p>
+                <div class="form-actions">
+                    <button id="confirm-delete" class="btn-danger">ลบผลงาน</button>
+                    <button onclick="closeDeleteModal()" class="btn-secondary">ยกเลิก</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 นิทรรศการศิลปะออนไลน์. สงวนลิขสิทธิ์.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Initialize admin page
+        document.addEventListener('DOMContentLoaded', function() {
+            checkAdminAccess('admin');
+            setupAdminPage();
+        });
+    </script>
+</body>
+</html>
