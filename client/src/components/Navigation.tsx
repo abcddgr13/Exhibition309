@@ -1,6 +1,6 @@
 // client/src/components/Navigation.tsx
-import { useLocation } from "wouter";
 import { useState } from "react";
+import { useLocation } from "wouter";
 import { Menu, X } from "lucide-react";
 
 export default function Navigation() {
@@ -18,44 +18,32 @@ export default function Navigation() {
     href === "/" ? location === "/" : location.startsWith(href);
 
   return (
-    <header className="fixed top-0 left-0 right-0 backdrop-blur-glass border-b border-border z-50">
-      <nav className="flex justify-between items-center px-4 md:px-8 py-4 max-w-7xl mx-auto">
-        <a
-          href="/"
-          className="text-xl md:text-2xl font-bold text-primary hover:text-accent transition-colors"
-        >
+    <header className="fixed top-0 left-0 right-0 backdrop-blur border-b border-gray-200 z-50">
+      <nav className="flex justify-between items-center px-4 py-4 max-w-7xl mx-auto">
+        {/* Logo / Site Name */}
+        <a href="/" className="text-xl font-bold text-primary">
           นิทรรศการศิลปะ
         </a>
 
         {/* Desktop Menu */}
-        <ul className="hidden md:flex items-center space-x-8">
+        <ul className="hidden md:flex space-x-8">
           {navItems.map(({ href, label }) => (
             <li key={href}>
               <a
                 href={href}
-                className={`font-medium transition-colors hover:text-primary ${
-                  isActive(href) ? "text-primary" : "text-foreground"
+                className={`font-medium hover:text-primary ${
+                  isActive(href) ? "text-primary" : "text-gray-700"
                 }`}
               >
                 {label}
               </a>
             </li>
           ))}
-          {sessionStorage.getItem("isAdmin") === "true" && (
-            <li>
-              <a
-                href="/admin"
-                className="font-medium transition-colors hover:text-primary text-red-500"
-              >
-                จัดการผลงาน
-              </a>
-            </li>
-          )}
         </ul>
 
-        {/* Mobile Toggle */}
+        {/* Mobile Menu Toggle */}
         <button
-          className="md:hidden text-foreground hover:text-primary transition-colors"
+          className="md:hidden focus:outline-none"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         >
           {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -63,14 +51,14 @@ export default function Navigation() {
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className="absolute top-full left-0 right-0 bg-card border-b border-border md:hidden">
+          <div className="absolute top-full left-0 right-0 bg-white border-b md:hidden">
             <ul className="flex flex-col">
               {navItems.map(({ href, label }) => (
                 <li key={href}>
                   <a
                     href={href}
-                    className={`block px-4 py-3 font-medium transition-colors hover:bg-secondary ${
-                      isActive(href) ? "text-primary bg-secondary" : "text-foreground"
+                    className={`block px-4 py-3 hover:bg-gray-100 ${
+                      isActive(href) ? "text-primary" : "text-gray-700"
                     }`}
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
@@ -78,17 +66,6 @@ export default function Navigation() {
                   </a>
                 </li>
               ))}
-              {sessionStorage.getItem("isAdmin") === "true" && (
-                <li>
-                  <a
-                    href="/admin"
-                    className="block px-4 py-3 font-medium transition-colors hover:bg-secondary text-red-500"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    จัดการผลงาน
-                  </a>
-                </li>
-              )}
             </ul>
           </div>
         )}
