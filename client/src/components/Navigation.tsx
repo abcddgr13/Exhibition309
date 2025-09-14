@@ -1,3 +1,4 @@
+// client/src/components/Navigation.tsx
 import { useLocation } from "wouter";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
