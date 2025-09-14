@@ -28,7 +28,8 @@ export default defineConfig({
   },
   root: path.resolve(import.meta.dirname, "client"),
   build: {
-    outDir: path.resolve(import.meta.dirname, "dist/public"),
+    // เปลี่ยน outDir สำหรับ Netlify
+    outDir: path.resolve(import.meta.dirname, "dist/client"),
     emptyOutDir: true,
   },
   server: {
