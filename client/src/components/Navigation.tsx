@@ -3,7 +3,6 @@ import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import React from "react";
 
-// ✅ export default แค่ครั้งเดียว
 export default function Navigation() {
   const [location] = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -42,6 +41,17 @@ export default function Navigation() {
               </a>
             </li>
           ))}
+          {/* แสดงเฉพาะแอดมิน */}
+          {sessionStorage.getItem("isAdmin") === "true" && (
+            <li>
+              <a
+                href="/admin"
+                className="font-medium transition-colors hover:text-primary text-red-500"
+              >
+                จัดการผลงาน
+              </a>
+            </li>
+          )}
         </ul>
 
         {/* Mobile Menu Toggle */}
@@ -69,6 +79,17 @@ export default function Navigation() {
                   </a>
                 </li>
               ))}
+              {sessionStorage.getItem("isAdmin") === "true" && (
+                <li>
+                  <a
+                    href="/admin"
+                    className="block px-4 py-3 font-medium transition-colors hover:bg-secondary text-red-500"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    จัดการผลงาน
+                  </a>
+                </li>
+              )}
             </ul>
           </div>
         )}
